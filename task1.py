@@ -1,26 +1,22 @@
-# Task 1
-# Radchuk
-# Group IT-32
+print("Radchuk Vlad, IT-32")
 
-birth_day = 12
-height = 1.87
-full_name = "Vlad Radchuk"
-has_driver_license = True
+name = input("Enter your full name (Latin letters): ").strip()
 
-print(f"birth_day = {birth_day}, type = {type(birth_day)}")
-print(f"height = {height}, type = {type(height)}")
-print(f"full_name = {full_name}, type = {type(full_name)}")
-print(f"has_driver_license = {has_driver_license}, type = {type(has_driver_license)}")
+if not name:
+    print("Name was not entered.")
+    name = "Anonymous"
 
-print("\nBefore changing types:")
-print(f"birth_day = {birth_day}, type = {type(birth_day)}")
-print(f"has_driver_license = {has_driver_license}, type = {type(has_driver_license)}")
+age = int(input("Enter your age (integer): "))
 
-birth_day = "one"
-has_driver_license = 1.0
+if age < 0:
+    category = "invalid value"
+elif age <= 6:
+    category = "child"
+elif age <= 17:
+    category = "schoolchild"
+elif age <= 64:
+    category = "adult"
+else:
+    category = "senior"
 
-print("\nAfter changing types:")
-print(f"birth_day = {birth_day}, type = {type(birth_day)}")
-print(f"has_driver_license = {has_driver_license}, type = {type(has_driver_license)}")
-
-birth_day + 1
+print(f"Hello, {name}! Your category is {category}.")

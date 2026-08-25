@@ -1,24 +1,31 @@
-# Task 5
-# Radchuk
-# Group IT-32
+print("Radchuk Vlad, IT-32")
 
-birth_day = 1
+day = int(input("Enter day (integer): "))
+month = int(input("Enter month (integer): "))
+year = int(input("Enter year (integer): "))
 
-is_positive = birth_day > 0
-is_even = birth_day % 2 == 0
-is_positive_and_even = is_positive and is_even
+if year <= 0:
+    print("Date is invalid: year must be positive")
 
-print(f"is_positive = {is_positive}")
-print(f"is_even = {is_even}")
-print(f"is_positive_and_even = {is_positive_and_even}")
+elif month < 1 or month > 12:
+    print("Date is invalid: month must be between 1 and 12")
 
-second_number = birth_day * 12
+else:
+    if month == 2:
+        if (year % 4 == 0 and year % 100 != 0) or year % 400 == 0:
+            max_days = 29
+        else:
+            max_days = 28
 
-is_second_positive = second_number > 0
-is_second_even = second_number % 2 == 0
-is_second_positive_and_even = is_second_positive and is_second_even
+    elif month in [1, 3, 5, 7, 8, 10, 12]:
+        max_days = 31
 
-print(f"second_number = {second_number}")
-print(f"is_second_positive = {is_second_positive}")
-print(f"is_second_even = {is_second_even}")
-print(f"is_second_positive_and_even = {is_second_positive_and_even}")
+    else:
+        max_days = 30
+
+    if day < 1:
+        print("Date is invalid: day must be positive")
+    elif day > max_days:
+        print(f"Date is invalid: month {month} has only {max_days} days")
+    else:
+        print("Date is valid")

@@ -1,24 +1,33 @@
-# Task 4
-# Radchuk
-# Group IT-32
+print("Radchuk Vlad, IT-32")
 
-a = 1
-b = 12
-c = len("Radchuk")
+score = int(input("Enter your score (integer, 0-100): "))
+missed = int(input("Enter the number of missed classes (integer): "))
 
-first_result = a < b
-second_result = b > c
-third_result = a <= b >= c
+if score < 0 or score > 100:
+    print("Error: score must be between 0 and 100")
+else:
+    if score >= 90:
+        grade = "A"
+    elif score >= 82:
+        grade = "B"
+    elif score >= 74:
+        grade = "C"
+    elif score >= 64:
+        grade = "D"
+    elif score >= 60:
+        grade = "E"
+    else:
+        grade = "F"
 
-fourth_result = a > b
-fifth_result = b < c
-sixth_result = a != a
+    if score >= 60:
+        status = "passed"
+    else:
+        status = "failed"
 
-print(f"a = {a}, b = {b}, c = {c}")
+    print(f"Score: {score}, Grade: {grade}, Status: {status}")
 
-print(f"{a} < {b} = {first_result}, type = {type(first_result)}")
-print(f"{b} > {c} = {second_result}, type = {type(second_result)}")
-print(f"{a} <= {b} >= {c} = {third_result}, type = {type(third_result)}")
-print(f"{a} > {b} = {fourth_result}, type = {type(fourth_result)}")
-print(f"{b} < {c} = {fifth_result}, type = {type(fifth_result)}")
-print(f"{a} != {a} = {sixth_result}, type = {type(sixth_result)}")
+    total_classes = 16
+    missed_percent = missed / total_classes * 100
+
+    if missed_percent > 30:
+        print("Warning: more than 30% of classes were missed. Not admitted.")
