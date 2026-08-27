@@ -1,26 +1,70 @@
-# Task 1
-# Radchuk
-# Group IT-32
+name = "Vlad"
+surname = "Radchuk"
+group = "IT-32"
 
-birth_day = 12
-height = 1.87
-full_name = "Vlad Radchuk"
-has_driver_license = True
+d = 12
+c = 7
 
-print(f"birth_day = {birth_day}, type = {type(birth_day)}")
-print(f"height = {height}, type = {type(height)}")
-print(f"full_name = {full_name}, type = {type(full_name)}")
-print(f"has_driver_license = {has_driver_license}, type = {type(has_driver_license)}")
+print(f"{name} {surname}, {group}")
 
-print("\nBefore changing types:")
-print(f"birth_day = {birth_day}, type = {type(birth_day)}")
-print(f"has_driver_license = {has_driver_license}, type = {type(has_driver_license)}")
+count = 0
+total = 0
+product = 1
+even = 0
+odd = 0
 
-birth_day = "one"
-has_driver_license = 1.0
+print(f"Numbers from {d} to 31:", end=" ")
 
-print("\nAfter changing types:")
-print(f"birth_day = {birth_day}, type = {type(birth_day)}")
-print(f"has_driver_license = {has_driver_license}, type = {type(has_driver_license)}")
+for number in range(d, 32):
+    print(number, end=" ")
+    count += 1
+    total += number
+    product *= number
 
-birth_day + 1
+    if number % 2 == 0:
+        even += 1
+    else:
+        odd += 1
+
+print()
+print(f"Count: {count}")
+print(f"Sum: {total}")
+print(f"Product: {product}")
+print(f"Average: {total / count:.2f}")
+print(f"Even: {even}, odd: {odd}")
+
+
+
+count = 0
+total = 0
+product = 1
+even = 0
+odd = 0
+number = d
+
+while number <= 31:
+    print(number, end=" ")
+    count += 1
+    total += number
+    product *= number
+
+    if number % 2 == 0:
+        even += 1
+    else:
+        odd += 1
+
+    number += 1
+
+print()
+print(f"Count: {count}")
+print(f"Sum: {total}")
+print(f"Product: {product}")
+print(f"Average: {total / count:.2f}")
+print(f"Even: {even}, odd: {odd}")
+
+
+
+print("Countdown:", end=" ")
+
+for number in range(c, 0, -1):
+    print(number, end=" ")

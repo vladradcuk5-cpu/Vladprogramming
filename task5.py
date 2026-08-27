@@ -1,24 +1,40 @@
-# Task 5
-# Radchuk
-# Group IT-32
+name = "Vlad"
+surname = "Radchuk"
+group = "IT-32"
 
-birth_day = 1
+d = 12
+c = 7
+n = d * c
 
-is_positive = birth_day > 0
-is_even = birth_day % 2 == 0
-is_positive_and_even = is_positive and is_even
+print(f"{name} {surname}, {group}")
+print(f"n = {d} * {c} = {n}")
 
-print(f"is_positive = {is_positive}")
-print(f"is_even = {is_even}")
-print(f"is_positive_and_even = {is_positive_and_even}")
+divisors = []
+total = 0
 
-second_number = birth_day * 12
+for i in range(1, n + 1):
+    if n % i == 0:
+        divisors.append(i)
+        total += i
 
-is_second_positive = second_number > 0
-is_second_even = second_number % 2 == 0
-is_second_positive_and_even = is_second_positive and is_second_even
+print("Divisors:", *divisors)
+print(f"Divisors count: {len(divisors)}, sum: {total}")
 
-print(f"second_number = {second_number}")
-print(f"is_second_positive = {is_second_positive}")
-print(f"is_second_even = {is_second_even}")
-print(f"is_second_positive_and_even = {is_second_positive_and_even}")
+for i in range(2, n):
+    if n % i == 0:
+        print(f"{n} is not prime")
+        break
+else:
+    print(f"{n} is prime")
+
+primes = []
+
+for number in range(2, n + 1):
+    for i in range(2, number):
+        if number % i == 0:
+            break
+    else:
+        primes.append(number)
+
+print("Primes up to", n, ":", *primes)
+print(f"Primes count: {len(primes)}")

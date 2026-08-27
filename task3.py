@@ -1,14 +1,16 @@
-# Task 3
-# Radchuk
-# Group IT-32
+name = "Vlad"
+surname = "Radchuk"
 
-first_number = float(input("Enter first number: "))
-second_number = float(input("Enter second number: "))
+text = name + surname
+vowels = 0
+consonants = 0
 
-print(f"{first_number} + {second_number} = {first_number + second_number}")
-print(f"{first_number} - {second_number} = {first_number - second_number}")
-print(f"{first_number} * {second_number} = {first_number * second_number}")
-print(f"{first_number} / {second_number} = {first_number / second_number}")
-print(f"{first_number} // {second_number} = {first_number // second_number}")
-print(f"{first_number} % {second_number} = {first_number % second_number}")
-print(f"{first_number} ** {second_number} = {first_number ** second_number}")
+for letter in text:
+    if letter.lower() in "aeiouy":
+        vowels += 1
+    else:
+        consonants += 1
+
+print(f"{name} {surname}")
+print(f"Vowels: {vowels}, consonants: {consonants}")
+print(f"Total letters: {len(text)}")

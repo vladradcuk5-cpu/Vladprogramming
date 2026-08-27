@@ -1,24 +1,35 @@
-# Task 4
-# Radchuk
-# Group IT-32
+name = "Vlad"
+surname = "Radchuk"
+group = "IT-32"
 
-a = 1
-b = 12
-c = len("Radchuk")
+print(f"{name} {surname}, {group}")
 
-first_result = a < b
-second_result = b > c
-third_result = a <= b >= c
+attempts = 0
 
-fourth_result = a > b
-fifth_result = b < c
-sixth_result = a != a
+while True:
+    score = int(input("Enter your score (0-100): "))
+    attempts += 1
 
-print(f"a = {a}, b = {b}, c = {c}")
+    if score < 0:
+        print("Score cannot be negative")
+    elif score > 100:
+        print("Score is too big, maximum is 100")
+    else:
+        break
 
-print(f"{a} < {b} = {first_result}, type = {type(first_result)}")
-print(f"{b} > {c} = {second_result}, type = {type(second_result)}")
-print(f"{a} <= {b} >= {c} = {third_result}, type = {type(third_result)}")
-print(f"{a} > {b} = {fourth_result}, type = {type(fourth_result)}")
-print(f"{b} < {c} = {fifth_result}, type = {type(fifth_result)}")
-print(f"{a} != {a} = {sixth_result}, type = {type(sixth_result)}")
+print(f"Accepted after {attempts} attempts")
+
+if score >= 90:
+    grade = "A"
+elif score >= 82:
+    grade = "B"
+elif score >= 74:
+    grade = "C"
+elif score >= 64:
+    grade = "D"
+elif score >= 60:
+    grade = "E"
+else:
+    grade = "F"
+
+print(f"Grade: {grade}")
