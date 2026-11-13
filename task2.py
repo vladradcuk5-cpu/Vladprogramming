@@ -1,35 +1,32 @@
-y = 2009
 
+import json
+from datetime import date
 
-def print_age(year):
-    age = 2026 - year
-    print(f"Age: {age}")
+print("Vladyslav Radchuk, IT-32")
 
+with open("data/expenses.json", "r", encoding="utf-8") as file:
+    expenses = json.load(file)
 
-def get_age(year, current_year=2026):
-    if year > current_year or year < 0:
-        return -1
+new_expense = {
+    "date": date.today().isoformat(),
+    "category": "Food",
+    "amount": 50,
+    "comment": "New expense"
+}
 
-    age = current_year - year
-    return age
-    print("after return")
+expenses.append(new_expense)
 
+added = 1
 
-print_age(y)
+old_count = len(expenses)
 
-print(print_age(y))
+expenses = [item for item in expenses if item["amount"] >= 10]
 
-age = get_age(y)
+deleted = old_count - len(expenses)
 
-print(f"Age from get_age: {age}")
-print(f"Age in months: {age * 12}")
-print(f"Age in weeks: {age * 52}")
-print(f"Age in 2030: {get_age(y, current_year=2030)}")
+with open("data/expenses_updated.json", "w", encoding="utf-8") as file:
+    json.dump(expenses, file, indent=2, ensure_ascii=False)
 
-print(f"Invalid year 3000 gives: {get_age(3000)}")
-
-
-try:
-    print_age(y) * 12
-except TypeError as error:
-    print(f"TypeError: {error}")
+print("added:", added)
+print("deleted:", deleted)
+print("records:", len(expenses))

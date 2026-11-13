@@ -1,71 +1,58 @@
-def read_grade(prompt):
-    """Reads a valid integer grade from 0 to 100."""
-    while True:
-        value = input(prompt)
 
-        if not value.isdigit():
-            print("Error: digits only")
-            continue
+import json
+from datetime import date
 
-        grade = int(value)
+print("Vladyslav Radchuk, IT-32")
 
-        if grade < 0 or grade > 100:
-            print("Error: the value must be between 0 and 100")
-            continue
+data = {
+    "owner": "Vladyslav Radchuk",
+    "date": date.today()
+}
 
-        return grade
+try:
+    json.dumps(data)
+except TypeError as error:
+    print("TypeError:", error)
 
+def date_default(obj):
+    if isinstance(obj, date):
+        return obj.isoformat()
+    raise TypeError("Unsupported type")
 
-def to_letter(grade):
-    """Converts a numeric grade to a letter grade."""
-    if grade >= 10:
-        return "A"
-    if grade >= 9:
-        return "B"
-    if grade >= 7:
-        return "C"
-    if grade >= 6:
-        return "D"
-    if grade >= 4:
-        return "E"
-    return "F"
+with open("date1.json", "w", encoding="utf-8") as file:
+    json.dump(data, file, default=date_default, indent=2)
 
+with open("date1.json", "r", encoding="utf-8") as file:
+    result = json.load(file)
 
-def average(grades):
-    """Returns the arithmetic mean of grades."""
-    return sum(grades) / len(grades)
+result["date"] = date.fromisoformat(result["date"])
 
+print("Method 1:", result == data)
+print("Date type:", type(result["date"]))
 
-def count_above(grades, limit):
-    """Returns the number of grades greater than the limit."""
-    count = 0
+def convert_to_string(obj):
+    if isinstance(obj, date):
+        return obj.isoformat()
+    if isinstance(obj, dict):
+        return {key: convert_to_string(value) for key, value in obj.items()}
+    if isinstance(obj, list):
+        return [convert_to_string(value) for value in obj]
+    return obj
 
-    for grade in grades:
-        if grade > limit:
-            count += 1
+def convert_to_date(obj):
+    if isinstance(obj, dict):
+        return {key: convert_to_date(value) for key, value in obj.items()}
+    if isinstance(obj, list):
+        return [convert_to_date(value) for value in obj]
+    return obj
 
-    return count
+with open("date2.json", "w", encoding="utf-8") as file:
+    json.dump(convert_to_string(data), file, indent=2)
 
+with open("date2.json", "r", encoding="utf-8") as file:
+    result = json.load(file)
 
-def print_report(name, group, grades):
-    """Prints a report with student grades and statistics."""
-    avg = average(grades)
+result["date"] = date.fromisoformat(result["date"])
 
-    print("--- Report ---")
-    print(f"Student: {name}, group {group}")
-    print("Grades:", *grades)
-    print(f"Average: {avg:.2f} -> {to_letter(avg)}")
-    print(f"Best: {max(grades)}, worst: {min(grades)}")
-    print(f"Above average: {count_above(grades, avg)}")
-
-
-def main():
-    """Runs the program."""
-    name = "Vlad"
-    group = "IT-32"
-    grades = [8, 7, 9, 10]
-
-    print_report(name, group, grades)
-
-
-main()
+print("Method 2:", result == data)
+print("Date type:", type(result["date"]))

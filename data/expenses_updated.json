@@ -1,0 +1,98 @@
+[
+  {
+    "date": "2026-10-01",
+    "category": "Food",
+    "amount": 250.0,
+    "comment": "Groceries"
+  },
+  {
+    "date": "2026-10-02",
+    "category": "Transport",
+    "amount": 80.0,
+    "comment": "Bus"
+  },
+  {
+    "date": "2026-10-03",
+    "category": "Food",
+    "amount": 320.0,
+    "comment": "Lunch"
+  },
+  {
+    "date": "2026-10-04",
+    "category": "Entertainment",
+    "amount": 200.0,
+    "comment": "Cinema"
+  },
+  {
+    "date": "2026-10-05",
+    "category": "Food",
+    "amount": 150.0,
+    "comment": "Groceries"
+  },
+  {
+    "date": "2026-10-06",
+    "category": "Transport",
+    "amount": 100.0,
+    "comment": "Taxi"
+  },
+  {
+    "date": "2026-10-07",
+    "category": "Food",
+    "amount": 280.0,
+    "comment": "Groceries"
+  },
+  {
+    "date": "2026-10-08",
+    "category": "Education",
+    "amount": 350.0,
+    "comment": "Books"
+  },
+  {
+    "date": "2026-10-09",
+    "category": "Food",
+    "amount": 190.0,
+    "comment": "Lunch"
+  },
+  {
+    "date": "2026-10-10",
+    "category": "Transport",
+    "amount": 80.0,
+    "comment": "Bus"
+  },
+  {
+    "date": "2026-10-11",
+    "category": "Entertainment",
+    "amount": 150.0,
+    "comment": "Games"
+  },
+  {
+    "date": "2026-10-12",
+    "category": "Food",
+    "amount": 400.0,
+    "comment": "Groceries"
+  },
+  {
+    "date": "2026-10-13",
+    "category": "Food",
+    "amount": 220.0,
+    "comment": "Lunch"
+  },
+  {
+    "date": "2026-10-14",
+    "category": "Transport",
+    "amount": 100.0,
+    "comment": "Taxi"
+  },
+  {
+    "date": "2026-10-15",
+    "category": "Food",
+    "amount": 300.0,
+    "comment": "Groceries"
+  },
+  {
+    "date": "2026-11-13",
+    "category": "Food",
+    "amount": 50,
+    "comment": "New expense"
+  }
+]
