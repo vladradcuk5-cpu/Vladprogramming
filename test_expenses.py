@@ -5,7 +5,6 @@ from pathlib import Path
 from expenses import parse_line, load_expenses, total_by_category
 
 
-# Завдання 2. Перші тести
 
 def test_parse_line_valid():
     record = parse_line("2026-09-21;food;85.50;lunch")
@@ -23,7 +22,6 @@ def test_parse_line_comment():
     assert record["comment"] == "lunch"
 
 
-# Завдання 3. Перевірка винятків
 
 def test_parse_line_bad_amount():
     with pytest.raises(ValueError):
@@ -35,7 +33,6 @@ def test_parse_line_wrong_fields():
         parse_line("2026-09-21;food;85.50")
 
 
-# Завдання 4. Параметризований тест
 
 @pytest.mark.parametrize(
     "line, expected_category, expected_amount",
@@ -53,7 +50,6 @@ def test_parse_line_parametrize(line, expected_category, expected_amount):
     assert record["amount"] == expected_amount
 
 
-# Завдання 5. Тест з тимчасовим файлом
 
 def test_total_by_category(tmp_path):
     path = tmp_path / "expenses.csv"
@@ -71,7 +67,6 @@ def test_total_by_category(tmp_path):
     assert totals == {"food": 100.0}
 
 
-# Перевірка справжнього файлу витрат
 
 def test_total_by_category_real_file():
     path = Path(__file__).parent / "data" / "expenses.csv"
