@@ -1,52 +1,27 @@
-name = "Vlad"
-surname = "Radchuk"
-c = len(surname)
 
+import requests
+import sys
 
-def get_initials(name: str, surname: str) -> str:
-    return f"{name[0].upper()}.{surname[0].upper()}."
+URL = "https://api.open-meteo.com/v1/forecast"
 
+params = {
+    "latitude": 50.7472,
+    "longitude": 25.3254,
+    "current": "temperature_2m,wind_speed_10m"
+}
 
-def count_letters(text: str, letter: str = "a") -> int:
-    """Return how many times letter occurs in text."""
-    return text.lower().count(letter.lower())
+try:
+    response = requests.get(URL, params=params, timeout=10)
+    response.raise_for_status()
 
+    data = response.json()
+    current = data["current"]
 
-def count_vowels(text: str) -> int:
-    vowels = "aeiouy"
-    count = 0
+    print("Місто: Луцьк")
+    print("Координати: 50.7472, 25.3254")
+    print("Температура:", current["temperature_2m"], "°C")
+    print("Швидкість вітру:", current["wind_speed_10m"], "км/год")
 
-    for char in text.lower():
-        if char in vowels:
-            count += 1
-
-    return count
-
-
-def reverse_text(text: str) -> str:
-    result = ""
-
-    for char in text:
-        result = char + result
-
-    return result
-
-
-print(f"{name} {surname}")
-print(f"Initials: {get_initials(name, surname)}")
-
-vowels = count_vowels(surname)
-consonants = c - vowels
-
-print(f"Letters in surname: {c}")
-print(f"Vowels: {vowels}, consonants: {consonants}")
-
-for letter in "aeiou":
-    print(f"{letter}: {count_letters(surname, letter=letter)}")
-
-print(f"Default letter 'a': {count_letters(surname)}")
-
-print(f"Reversed surname: {reverse_text(surname)}")
-
-print(f"Docstring: {count_letters.__doc__}")
-print(f"Annotations: {count_letters.__annotations__}")
+except (requests.RequestException, KeyError, ValueError) as error:
+    print("Помилка:", error, file=sys.stderr)
+    sys.exit(1)

@@ -1,35 +1,56 @@
-y = 2009
 
+import csv
+import requests
+import sys
 
-def print_age(year):
-    age = 2026 - year
-    print(f"Age: {age}")
+URL = "https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange"
+STUDENT = "Радчук Владислав"
+GROUP = "ІТ-32"
 
+def get_rate(currency):
+    response = requests.get(
+        URL,
+        params={"valcode": currency, "json": ""},
+        timeout=10
+    )
+    response.raise_for_status()
+    data = response.json()
+    return data[0]["rate"], data[0]["exchangedate"]
 
-def get_age(year, current_year=2026):
-    if year > current_year or year < 0:
-        return -1
-
-    age = current_year - year
-    return age
-    print("after return")
-
-
-print_age(y)
-
-print(print_age(y))
-
-age = get_age(y)
-
-print(f"Age from get_age: {age}")
-print(f"Age in months: {age * 12}")
-print(f"Age in weeks: {age * 52}")
-print(f"Age in 2030: {get_age(y, current_year=2030)}")
-
-print(f"Invalid year 3000 gives: {get_age(3000)}")
-
+def test_error(mode):
+    if mode == "connection":
+        requests.get("http://127.0.0.1:9999", timeout=10)
+    elif mode == "http":
+        requests.get("https://httpbin.org/status/404", timeout=10).raise_for_status()
+    elif mode == "timeout":
+        requests.get("https://bank.gov.ua", timeout=0.001)
 
 try:
-    print_age(y) * 12
-except TypeError as error:
-    print(f"TypeError: {error}")
+    if len(sys.argv) > 1:
+        test_error(sys.argv[1])
+    else:
+        total = 0
+
+        with open("data/expenses.csv", "r", encoding="utf-8-sig") as file:
+            lines = (line for line in file if line.strip())
+            reader = csv.DictReader(lines, delimiter=";")
+
+            for row in reader:
+                total += float(row["amount"])
+
+        usd_rate, date = get_rate("USD")
+        eur_rate, _ = get_rate("EUR")
+
+        print("Студент:", STUDENT)
+        print("Група:", GROUP)
+        print("Загальні витрати:", total, "UAH")
+        print("Курс валют на:", date)
+        print("У доларах:", round(total / usd_rate, 2), "USD")
+        print("У євро:", round(total / eur_rate, 2), "EUR")
+
+except requests.RequestException as error:
+    print("Помилка:", error, file=sys.stderr)
+    sys.exit(1)
+except (OSError, ValueError, KeyError, IndexError) as error:
+    print("Помилка:", error, file=sys.stderr)
+    sys.exit(1)
