@@ -1,71 +1,69 @@
-def read_grade(prompt):
-    """Reads a valid integer grade from 0 to 100."""
-    while True:
-        value = input(prompt)
 
-        if not value.isdigit():
-            print("Error: digits only")
-            continue
-
-        grade = int(value)
-
-        if grade < 0 or grade > 100:
-            print("Error: the value must be between 0 and 100")
-            continue
-
-        return grade
+import csv
 
 
-def to_letter(grade):
-    """Converts a numeric grade to a letter grade."""
-    if grade >= 10:
-        return "A"
-    if grade >= 9:
-        return "B"
-    if grade >= 7:
-        return "C"
-    if grade >= 6:
-        return "D"
-    if grade >= 4:
-        return "E"
-    return "F"
+class Expense:
+    def __init__(self, date, category, amount, description):
+        self.date = date
+        self.category = category
+        self.amount = float(amount)
+        self.description = description
+
+    def is_big(self, limit):
+        return self.amount > limit
+
+    def describe(self):
+        return f"{self.date} | {self.category} | {self.amount:.2f} грн | {self.description}"
 
 
-def average(grades):
-    """Returns the arithmetic mean of grades."""
-    return sum(grades) / len(grades)
+class ExpenseBook:
+    def __init__(self):
+        self.expenses = []
+
+    def add(self, expense):
+        self.expenses.append(expense)
+
+    def total(self):
+        return sum(expense.amount for expense in self.expenses)
+
+    def by_category(self):
+        result = {}
+
+        for expense in self.expenses:
+            result[expense.category] = result.get(expense.category, 0) + expense.amount
+
+        return result
+
+    def top(self, count=5):
+        return sorted(self.expenses, key=lambda expense: expense.amount, reverse=True)[:count]
 
 
-def count_above(grades, limit):
-    """Returns the number of grades greater than the limit."""
-    count = 0
+book = ExpenseBook()
 
-    for grade in grades:
-        if grade > limit:
-            count += 1
+with open("data/expenses.csv", "r", encoding="utf-8-sig", newline="") as file:
+    lines = (line for line in file if line.strip())
+    reader = csv.DictReader(lines, delimiter=";")
 
-    return count
+    for row in reader:
+        expense = Expense(
+            row["date"],
+            row["category"],
+            row["amount"],
+            row["description"]
+        )
+        book.add(expense)
 
+print("Загальна сума витрат:")
+print(f"{book.total():.2f} грн")
 
-def print_report(name, group, grades):
-    """Prints a report with student grades and statistics."""
-    avg = average(grades)
+print("\nВитрати за категоріями:")
 
-    print("--- Report ---")
-    print(f"Student: {name}, group {group}")
-    print("Grades:", *grades)
-    print(f"Average: {avg:.2f} -> {to_letter(avg)}")
-    print(f"Best: {max(grades)}, worst: {min(grades)}")
-    print(f"Above average: {count_above(grades, avg)}")
+for category, amount in book.by_category().items():
+    print(f"{category}: {amount:.2f} грн")
 
+print("\nТоп-5 найбільших витрат:")
 
-def main():
-    """Runs the program."""
-    name = "Vlad"
-    group = "IT-32"
-    grades = [8, 7, 9, 10]
+for expense in book.top(5):
+    print(expense.describe())
 
-    print_report(name, group, grades)
-
-
-main()
+print("\nКількість записів:", len(book.expenses))

@@ -1,52 +1,45 @@
-name = "Vlad"
-surname = "Radchuk"
-c = len(surname)
+
+import csv
 
 
-def get_initials(name: str, surname: str) -> str:
-    return f"{name[0].upper()}.{surname[0].upper()}."
+class Expense:
+    def __init__(self, date, category, amount, description):
+        self.date = date
+        self.category = category
+        self.amount = float(amount)
+        self.description = description
+
+    def is_big(self, limit):
+        return self.amount > limit
+
+    def describe(self):
+        return f"{self.date} | {self.category} | {self.amount:.2f} грн | {self.description}"
 
 
-def count_letters(text: str, letter: str = "a") -> int:
-    """Return how many times letter occurs in text."""
-    return text.lower().count(letter.lower())
+expenses = []
 
+with open("data/expenses.csv", "r", encoding="utf-8-sig", newline="") as file:
+    lines = (line for line in file if line.strip())
+    reader = csv.DictReader(lines, delimiter=";")
 
-def count_vowels(text: str) -> int:
-    vowels = "aeiouy"
-    count = 0
+    for row in reader:
+        expense = Expense(
+            row["date"],
+            row["category"],
+            row["amount"],
+            row["description"]
+        )
+        expenses.append(expense)
 
-    for char in text.lower():
-        if char in vowels:
-            count += 1
+print("Список витрат:")
 
-    return count
+for expense in expenses:
+    print(expense.describe())
 
+print("\nВеликі витрати (понад 300 грн):")
 
-def reverse_text(text: str) -> str:
-    result = ""
+for expense in expenses:
+    if expense.is_big(300):
+        print(expense.describe())
 
-    for char in text:
-        result = char + result
-
-    return result
-
-
-print(f"{name} {surname}")
-print(f"Initials: {get_initials(name, surname)}")
-
-vowels = count_vowels(surname)
-consonants = c - vowels
-
-print(f"Letters in surname: {c}")
-print(f"Vowels: {vowels}, consonants: {consonants}")
-
-for letter in "aeiou":
-    print(f"{letter}: {count_letters(surname, letter=letter)}")
-
-print(f"Default letter 'a': {count_letters(surname)}")
-
-print(f"Reversed surname: {reverse_text(surname)}")
-
-print(f"Docstring: {count_letters.__doc__}")
-print(f"Annotations: {count_letters.__annotations__}")
+print("\nКількість витрат:", len(expenses))
