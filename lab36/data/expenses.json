@@ -1,0 +1,50 @@
+[
+  {
+    "date": "",
+    "category": "food",
+    "amount": 150.5,
+    "comment": ""
+  },
+  {
+    "date": "",
+    "category": "food",
+    "amount": 200.0,
+    "comment": ""
+  },
+  {
+    "date": "",
+    "category": "food",
+    "amount": 120.0,
+    "comment": ""
+  },
+  {
+    "date": "",
+    "category": "transport",
+    "amount": 50.0,
+    "comment": ""
+  },
+  {
+    "date": "",
+    "category": "transport",
+    "amount": 80.0,
+    "comment": ""
+  },
+  {
+    "date": "",
+    "category": "transport",
+    "amount": 35.0,
+    "comment": ""
+  },
+  {
+    "date": "",
+    "category": "fun",
+    "amount": 250.0,
+    "comment": ""
+  },
+  {
+    "date": "",
+    "category": "fun",
+    "amount": 100.0,
+    "comment": ""
+  }
+]
